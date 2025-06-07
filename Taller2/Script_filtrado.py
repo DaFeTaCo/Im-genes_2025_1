@@ -2,9 +2,14 @@ import nibabel as nib
 import numpy as np
 from scipy.ndimage import gaussian_filter
 
-# --- 1. Cargar la imagen anatómica ---
-input_nifti_path = 'E:\ACTUAL\ACTUAL\P_D_Imagenes\Git-Hub\Imagenes_2025_1\DATA\data_taller2\BIDS\sub-0001/anat\sub-0001_T1w.nii.gz' # ¡Cambia esto por la ruta real de tu archivo!
+#pip install bids
+from bids import BIDSLayout
+import nibabel as nib
+import os
 
+# --- 1. Cargar la imagen anatómica ---
+#input_nifti_path = 'E:\ACTUAL\ACTUAL\P_D_Imagenes\Git-Hub\Imagenes_2025_1\DATA\data_taller2\BIDS\sub-0001/anat\sub-0001_T1w.nii.gz' # ¡Cambia esto por la ruta real de tu archivo!
+input_nifti_path = r'C:\Users\Isabela\Documents\2025-1\Imagenes\Imagenes_2025_1\DATA\data_taller2\BIDS\BIDS\sub-0001/anat\sub-0001_T1w.nii.gz'
 try:
     img = nib.load(input_nifti_path)
     data = img.get_fdata() # Obtener los datos de la imagen como un array NumPy
@@ -29,7 +34,8 @@ filtered_gaussian_data = gaussian_filter(data, sigma=sigma_gaussian)
 print("Filtro gaussiano aplicado.")
 
 # Guardar la imagen con filtro gaussiano
-output_gaussian_nifti_path = 'E:\ACTUAL\ACTUAL\P_D_Imagenes\Git-Hub\Imagenes_2025_1\DATA\data_taller2\Results\sub-0001_Gaussian' # Cambia esto
+#output_gaussian_nifti_path = 'E:\ACTUAL\ACTUAL\P_D_Imagenes\Git-Hub\Imagenes_2025_1\DATA\data_taller2\Results\sub-0001_Gaussian' # Cambia esto
+output_gaussian_nifti_path = r'C:\Users\Isabela\Documents\2025-1\Imagenes\Imagenes_2025_1\DATA\data_taller2\BIDS\BIDS\sub-0001/anat\sub-0001_T1w_gaussian.nii.gz' # Cambia esto
 gaussian_img = nib.Nifti1Image(filtered_gaussian_data, affine, header)
 nib.save(gaussian_img, output_gaussian_nifti_path)
 print(f"Imagen gaussiana guardada en: {output_gaussian_nifti_path}")
@@ -153,7 +159,8 @@ filtered_anisotropic_data = anisotropic_diffusion(data,
 print("Filtro anisotrópico aplicado.")
 
 # Guardar la imagen con filtro anisotrópico
-output_anisotropic_nifti_path = 'E:\ACTUAL\ACTUAL\P_D_Imagenes\Git-Hub\Imagenes_2025_1\DATA\data_taller2\Results\sub-0001_Anisotropic' # Cambia esto
+#output_anisotropic_nifti_path = 'E:\ACTUAL\ACTUAL\P_D_Imagenes\Git-Hub\Imagenes_2025_1\DATA\data_taller2\Results\sub-0001_Anisotropic' # Cambia esto
+output_anisotropic_nifti_path = r'C:\Users\Isabela\Documents\2025-1\Imagenes\Imagenes_2025_1\DATA\data_taller2\BIDS\BIDS\sub-0001/anat/sub-0001_T1w_anisotropic.nii.gz' # Cambia esto
 anisotropic_img = nib.Nifti1Image(filtered_anisotropic_data, affine, header)
 nib.save(anisotropic_img, output_anisotropic_nifti_path)
 print(f"Imagen anisotrópica guardada en: {output_anisotropic_nifti_path}")
